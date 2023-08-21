@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bakery Menu</title>
+  </head>
+  <header><%- include('partials/header.ejs') %></header>
+  <nav><%- include('partials/nav.ejs') %></nav>
+  <body>
+    <h1>Bakery Menu</h1>
+    <ul>
+      <% for (const menuItem of menuItems) { %>
+      <li>
+        <%= menuItem.item_name %> - $<%= menuItem.price %>
+        <form action="/api/delete/<%= menuItem.id %>" method="DELETE">
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <% } %>
+    </ul>
+    <form action="/api/menu" method="POST">
+      <label for="item_name">Item Name:</label>
+      <input type="text" name="item_name" required />
+      <label for="price">Price:</label>
+      <input type="number" name="price" step="0.01" required />
+      <button type="submit">Add Item</button>
+    </form>
+  </body>
+</html>
